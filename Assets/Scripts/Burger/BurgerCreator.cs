@@ -32,7 +32,7 @@ public class BurgerCreator : MonoBehaviour
 
     private BurgerPiece CreatePiece(Transform previousPiecePoint)
     {
-        return Instantiate(_piecePrefab, GetPositionForNewPiece(previousPiecePoint), Quaternion.identity, parent: _burgerPosition);
+        return Instantiate(_piecePrefab, GetPositionForNewPiece(previousPiecePoint), Quaternion.identity, transform);
     }
 
     private Vector3 GetPositionForNewPiece(Transform previousPiecePoint)

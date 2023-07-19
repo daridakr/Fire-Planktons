@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
-    [SerializeField] private Bullet _bullet;
+    [SerializeField] private Plankton _bullet;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private float _delayBetweenShoots;
 
