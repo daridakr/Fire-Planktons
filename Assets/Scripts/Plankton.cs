@@ -16,9 +16,9 @@ public class Plankton : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out BurgerPiece piece))
+        if (other.TryGetComponent(out BurgerPiece piece))
         {
-            Destroy(piece.gameObject);
+            piece.Destroy();
             Destroy(gameObject);
         }
     }

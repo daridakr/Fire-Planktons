@@ -5,40 +5,57 @@ public class BurgerCreator : MonoBehaviour
 {
     [SerializeField] private int _size;
     [SerializeField] private BurgerPiece _piecePrefab;
+    [SerializeField] private BurgerPiece _bunPrefab;
     [SerializeField] private Transform _burgerPosition;
 
     private List<BurgerPiece> _pieces;
-    private float _verticalOffset = 0.3f;
 
-    private void Start()
+    private void Awake()
     {
         _pieces = new List<BurgerPiece>();
-        Create();
     }
 
     public List<BurgerPiece> Create()
     {
         Transform previousPiecePoint = _burgerPosition;
 
-        for (int i = 0; i < _size; i++)
-        {
-            BurgerPiece newPiece = CreatePiece(previousPiecePoint);
-            _pieces.Add(newPiece);
-            previousPiecePoint = newPiece.transform;
-        }
+        previousPiecePoint = PutBun(previousPiecePoint);
+        previousPiecePoint = FillBurger(previousPiecePoint);
+        PutBun(previousPiecePoint);
 
         return _pieces;
     }
 
-    private BurgerPiece CreatePiece(Transform previousPiecePoint)
+    private Transform FillBurger(Transform piecePoint)
     {
-        return Instantiate(_piecePrefab, GetPositionForNewPiece(previousPiecePoint), Quaternion.identity, transform);
+        for (int i = 0; i < _size; i++)
+        {
+            BurgerPiece newPiece = CreatePiece(_piecePrefab, piecePoint);
+            _pieces.Add(newPiece);
+            piecePoint = newPiece.transform;
+        }
+
+        return piecePoint;
     }
 
-    private Vector3 GetPositionForNewPiece(Transform previousPiecePoint)
+    private BurgerPiece CreatePiece(BurgerPiece prefab, Transform previousPiecePoint)
+    {
+        return Instantiate(prefab, GetPositionForNewPiece(prefab, previousPiecePoint), Quaternion.identity, transform);
+    }
+
+    private Vector3 GetPositionForNewPiece(BurgerPiece prefab, Transform previousPiecePoint)
     {
         return new Vector3(_burgerPosition.position.x,
-                           previousPiecePoint.position.y + previousPiecePoint.localScale.y / 2 + _piecePrefab.transform.localScale.y / 2 - _verticalOffset,
+                           previousPiecePoint.position.y + previousPiecePoint.localScale.y / 2 + prefab.transform.localScale.y / 2,
                            _burgerPosition.position.z);
+    }
+
+    private Transform PutBun(Transform previousPiecePoint)
+    {
+        BurgerPiece topBun = CreatePiece(_bunPrefab, previousPiecePoint);
+        previousPiecePoint = topBun.transform;
+        _pieces.Add(topBun);
+
+        return previousPiecePoint;
     }
 }
