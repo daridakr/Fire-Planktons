@@ -21,5 +21,10 @@ public class Plankton : MonoBehaviour
             piece.Destroy();
             Destroy(gameObject);
         }
+        else if (other.TryGetComponent(out Obstacle obstacle))
+        {
+            obstacle.Hit();
+            Destroy(gameObject);
+        }
     }
 }

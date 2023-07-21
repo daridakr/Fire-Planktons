@@ -16,7 +16,7 @@ public class Burger : MonoBehaviour
     {
         _pieces = _creator.Create();
 
-        foreach (var piece in _pieces)
+        foreach (BurgerPiece piece in _pieces)
         {
             piece.Hitted += OnPieceHitted;
         }
@@ -26,13 +26,14 @@ public class Burger : MonoBehaviour
     {
         hittedPiece.Hitted -= OnPieceHitted;
 
+        Transform previousPiecePoint = hittedPiece.transform;
         _pieces.Remove(hittedPiece);
 
-        foreach (var piece in _pieces)
+        foreach (BurgerPiece piece in _pieces)
         {
             piece.transform.position = new Vector3(
                 piece.transform.position.x,
-                piece.transform.position.y - piece.transform.localScale.y,
+                piece.transform.position.y - previousPiecePoint.localScale.y,
                 piece.transform.position.z);
         }
     }

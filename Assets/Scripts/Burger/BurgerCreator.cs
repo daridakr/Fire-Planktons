@@ -4,8 +4,9 @@ using UnityEngine;
 public class BurgerCreator : MonoBehaviour
 {
     [SerializeField] private int _size;
+    [SerializeField] private BurgerPiece _startBunPrefab;
     [SerializeField] private BurgerPiece _piecePrefab;
-    [SerializeField] private BurgerPiece _bunPrefab;
+    [SerializeField] private BurgerPiece _endBunPrefab;
     [SerializeField] private Transform _burgerPosition;
 
     private List<BurgerPiece> _pieces;
@@ -19,9 +20,9 @@ public class BurgerCreator : MonoBehaviour
     {
         Transform previousPiecePoint = _burgerPosition;
 
-        previousPiecePoint = PutBun(previousPiecePoint);
+        previousPiecePoint = PutBun(_startBunPrefab, previousPiecePoint);
         previousPiecePoint = FillBurger(previousPiecePoint);
-        PutBun(previousPiecePoint);
+        PutBun(_endBunPrefab, previousPiecePoint);
 
         return _pieces;
     }
@@ -43,16 +44,16 @@ public class BurgerCreator : MonoBehaviour
         return Instantiate(prefab, GetPositionForNewPiece(prefab, previousPiecePoint), Quaternion.identity, transform);
     }
 
-    private Vector3 GetPositionForNewPiece(BurgerPiece prefab, Transform previousPiecePoint)
+    private Vector3 GetPositionForNewPiece(BurgerPiece newPiece, Transform previousPiecePoint)
     {
         return new Vector3(_burgerPosition.position.x,
-                           previousPiecePoint.position.y + previousPiecePoint.localScale.y / 2 + prefab.transform.localScale.y / 2,
+                           previousPiecePoint.position.y + previousPiecePoint.localScale.y / 2 + newPiece.transform.localScale.y / 2,
                            _burgerPosition.position.z);
     }
 
-    private Transform PutBun(Transform previousPiecePoint)
+    private Transform PutBun(BurgerPiece prefab, Transform previousPiecePoint)
     {
-        BurgerPiece topBun = CreatePiece(_bunPrefab, previousPiecePoint);
+        BurgerPiece topBun = CreatePiece(prefab, previousPiecePoint);
         previousPiecePoint = topBun.transform;
         _pieces.Add(topBun);
 

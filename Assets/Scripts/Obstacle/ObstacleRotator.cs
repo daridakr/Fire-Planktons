@@ -5,13 +5,36 @@ public class ObstacleRotator : MonoBehaviour
 {
     [SerializeField] private float _duration;
 
-    private void Start()
+    private Obstacle[] _obstacles;
+
+    private void Awake()
     {
-        Rotate(_duration);
+        _obstacles = GetComponentsInChildren<Obstacle>();
+
+        for (int i = 0; i < _obstacles.Length; i++)
+        {
+            _obstacles[i].Hitted += OnObstacleHit;
+        }
     }
 
-    private void Rotate(float duration)
+    private void Start()
+    {
+        BeginRotate(_duration);
+    }
+
+    private void OnObstacleHit(Obstacle obstacle)
+    {
+        StopRotate();
+        obstacle.Hitted -= OnObstacleHit;
+    }
+
+    private void BeginRotate(float duration)
     {
         transform.DORotate(new Vector3(0, 360, 0), duration, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private void StopRotate()
+    {
+        transform.DOKill();
     }
 }
