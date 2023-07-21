@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BurgerCreator))]
 public class Burger : MonoBehaviour
 {
     private BurgerCreator _creator;
     private List<BurgerPiece> _pieces;
+
+    public UnityAction<Burger> Destroyed;
 
     private void Awake()
     {
@@ -29,12 +32,19 @@ public class Burger : MonoBehaviour
         Transform previousPiecePoint = hittedPiece.transform;
         _pieces.Remove(hittedPiece);
 
-        foreach (BurgerPiece piece in _pieces)
+        if (_pieces.Count > 0) 
         {
-            piece.transform.position = new Vector3(
-                piece.transform.position.x,
-                piece.transform.position.y - previousPiecePoint.localScale.y,
-                piece.transform.position.z);
+            foreach (BurgerPiece piece in _pieces)
+            {
+                piece.transform.position = new Vector3(
+                    piece.transform.position.x,
+                    piece.transform.position.y - previousPiecePoint.localScale.y,
+                    piece.transform.position.z);
+            }
+        }
+        else
+        {
+            Destroyed?.Invoke(this);
         }
     }
 }
