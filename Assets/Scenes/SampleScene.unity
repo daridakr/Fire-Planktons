@@ -563,7 +563,7 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1.0000001
+  m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
@@ -7345,6 +7345,7 @@ MonoBehaviour:
   _bullet: {fileID: 7984274648613614035, guid: d4dfe0952c646b848abefb6bb1999c7a, type: 3}
   _shootPoint: {fileID: 1816393439}
   _delayBetweenShoots: 0.1
+  _recoilDistance: 0.2
 --- !u!1 &1983811278
 GameObject:
   m_ObjectHideFlags: 0
