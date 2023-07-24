@@ -4219,7 +4219,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 88
+  m_VersionIndex: 118
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4339,3 +4339,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf439d0fd6fc1741bea28d44854ce9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _destroyEffect: {fileID: 8661708202667456918, guid: 668b752be88d8694693f48779a0a0dd1, type: 3}
