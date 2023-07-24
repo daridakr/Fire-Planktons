@@ -7,7 +7,7 @@ public class ObstacleRotator : MonoBehaviour
 
     private Obstacle[] _obstacles;
 
-    private void Awake()
+    private void OnEnable()
     {
         _obstacles = GetComponentsInChildren<Obstacle>();
 

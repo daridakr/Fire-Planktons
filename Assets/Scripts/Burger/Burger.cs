@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(BurgerCreator))]
 public class Burger : MonoBehaviour
@@ -8,6 +8,7 @@ public class Burger : MonoBehaviour
     private BurgerCreator _creator;
     private List<BurgerPiece> _pieces;
 
+    public UnityAction<int> SizeChanged;
     public UnityAction<Burger> Destroyed;
 
     private void Awake()
@@ -23,6 +24,8 @@ public class Burger : MonoBehaviour
         {
             piece.Hitted += OnPieceHitted;
         }
+
+        SizeChanged?.Invoke(_pieces.Count);
     }
 
     private void OnPieceHitted(BurgerPiece hittedPiece)
@@ -46,5 +49,7 @@ public class Burger : MonoBehaviour
         {
             Destroyed?.Invoke(this);
         }
+
+        SizeChanged?.Invoke(_pieces.Count);
     }
 }
